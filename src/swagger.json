@@ -1,0 +1,242 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "SOLID Documentation",
+    "description": "This is a test API for SOLID principles",
+    "version": "1.0.0",
+    "contact": {
+      "email":"fwmtavares@gmail.com"
+    }
+  },
+  "paths": {
+    "/users": {
+      "post": {
+        "tags": ["User"],
+        "summary": "Create an User",
+        "description": "Create a new User",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type":"string"
+                  }
+                },
+                "example": {
+                  "name": "Fulano de Tal",
+                  "email": "fulano.de.tal@example.com"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type":"string"
+                    }
+                  }
+                }
+              }
+            }  
+          },
+          "400": {
+            "description": "User already exists",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags":["User"],
+        "summary": "List all users",
+        "description": "List all users",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "header",
+            "description": "Id of an admin user in header",
+            "required": false,
+            "schema": {
+              "type": "string"            
+            },
+           "style": "simple",
+           "example": "1"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema":{
+                  "type": "array",
+                  "items": {
+                    "type":"object",
+                    "properties": {
+                      "name": {
+                        "type":"string"
+                      },
+                      "email": {
+                        "type":"string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "User not exists or is not admin.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{user_id}/admin": {
+      "patch":{
+        "tags":["User"],
+        "summary": "Updated users for admin",
+        "description": "Updated users for admin",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "description": "Id of an admin user in path",
+            "required": false,
+            "schema": {
+              "type": "string"            
+            },
+           "style": "simple",
+           "example": "1"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type":"string"
+                    }
+                  }
+                }
+              }
+            }  
+          },
+          "404": {
+            "description": "Id not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }      
+      }
+    },
+    "/users/{user_id}": {
+      "get":{
+        "tags":["User"],
+        "summary": "Show user profile",
+        "description": "Show user profile",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "description": "Id of an user in path",
+            "required": false,
+            "schema": {
+              "type": "string"            
+            },
+           "style": "simple",
+           "example": "1"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Showed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type":"string"
+                    }
+                  }
+                }
+              }
+            }  
+          },
+          "404": {
+            "description": "Id not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }      
+      }
+    }
+  }
+}
